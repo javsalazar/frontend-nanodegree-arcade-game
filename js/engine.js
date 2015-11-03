@@ -45,7 +45,12 @@ var Engine = (function(global) {
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
-        update(dt);
+        
+        //PAUSE animation when player dies!
+        if ( player.inState !== 'crash' && player.inState !== 'over' ){
+            update(dt);
+        }
+
         render();
 
         /* Set our lastTime variable which is used to determine the time delta
@@ -80,7 +85,6 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
     }
 
     /* This is called by the update function  and loops through all of the
@@ -91,10 +95,13 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
+        
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+        
         player.update();
+        
     }
 
     /* This function initially draws the "game level", it will then call
@@ -137,7 +144,7 @@ var Engine = (function(global) {
         }
 
 
-        renderEntities();
+         renderEntities();
     }
 
     /* This function is called by the render function and is called on each game
@@ -153,6 +160,7 @@ var Engine = (function(global) {
         });
 
         player.render();
+        // heart.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -172,7 +180,9 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/enemy-bug-r.png',
+        'images/char-boy.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
