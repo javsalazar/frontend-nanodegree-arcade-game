@@ -99,6 +99,36 @@
         readyCallbacks.push(func);
     }
 
+    function getRandom(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
+    function createEnemies (level) {
+    var allEnemies = [],
+        totalEnemies = levels[player.level].bugs;
+
+        if( level && level.bugs){
+            totalEnemies = level.bugs;
+        }
+
+        for( var count = 0; count < totalEnemies; count++ ){
+            // count determines the row the bug appears on
+            allEnemies.push( new Enemy(count));
+
+            // play enemy/game sound after first enemy pushed into array
+            if ( allEnemies[0]){
+                allEnemies[count].enemySound();  //JAV-UNCOMMENT FOR SOUND>>>
+            }
+        }
+
+        return allEnemies;
+    }
+
+    function showGame () {
+        var canvas = document.querySelector("canvas");
+        canvas.className = "animated fadeInDownBig";
+    }
+
     /* This object defines the publicly accessible functions available to
      * developers by creating a global Resources object.
      */
@@ -106,6 +136,9 @@
         load: load,
         get: get,
         onReady: onReady,
-        isReady: isReady
+        isReady: isReady,
+        getRandom: getRandom,
+        createEnemies: createEnemies,
+        showGame: showGame
     };
 })();
