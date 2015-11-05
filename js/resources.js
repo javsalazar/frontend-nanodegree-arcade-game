@@ -120,8 +120,8 @@
     }
 
     function showGame () {
-        var canvas = document.querySelector("canvas");
-        canvas.className = "animated fadeInDownBig";
+        var canvas = document.querySelector('canvas');
+        canvas.className = 'animated fadeInDownBig';
         Resources.bgSound(true);
     }
 
@@ -147,7 +147,7 @@
     // play background music, play if parameter is true otherwise pause
     function bgSound(play) {
 
-        var sound = document.getElementById("bug-sound");
+        var sound = document.getElementById('bug-sound');
         
         sound.pause();
 
@@ -155,7 +155,7 @@
             player.music = false;
             return;
         }
-        sound.src = "../sound/groovy.m4a";
+        sound.src = '../sound/groovy.m4a';
         sound.volume = 0.3;
         sound.play();
         player.music = true;
