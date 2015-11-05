@@ -6,9 +6,55 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <audio id="bug-sound" src="" loop></audio>
+    <audio id="bug-sound" src="sound/groovy.m4a" loop></audio>
     <audio id="player-sound" src="sound/jump.m4a"></audio>
-    <script src="js/resources.js"></script>
+
+    <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+		<div class="flipper">
+			<div class="front">
+				<canvas width="505" height="606"></canvas>
+			</div>
+			<div class="back">
+				<div class="characters ">
+					<h2>Characters</h2>
+					<p>Change your character at any time</p>
+					<img src="images/char-boy.png" alt="boy">
+					<img src="images/char-cat-girl.png" alt="cat girl">
+					<img src="images/char-horn-girl.png" alt="horn girl">
+					<img src="images/char-pink-girl.png" alt="pink girl">
+					<img src="images/char-princess-girl.png" alt="princess girl">
+						
+				</div>
+				<div class="goodies ">
+					<h2>Goodies</h2>
+					<p>Chollect each for points and/or life.</p>	
+					<img src="images/Heart.png" alt="heart">
+					<img src="images/gem-green.png" alt="green gem">
+					<img src="images/gem-orange.png" alt="orange gem">
+					<img src="images/gem-blue.png" alt="blue gem">
+					
+				</div>
+
+				<div class="keycodes container">
+					<h2>Keys</h2>
+					<p>'up arrow' - move up</p>
+					<p>'down arrow' - move down</p>
+					<p>'left arrow' - move left</p>
+					<p>'right arrow' - mover right</p>
+					<p>'c' - change character at any time</p>
+					<p>'r' - restart game once it's over</p>
+					<p>'h' - toogle this help page</p>
+					<p>'m' - toogle music on/off</p>
+ 				</div>
+ 				<div class="object container">
+					<h2>Object of Game</h2>
+					<p>Reach the water and avoid the bugs.  The faster you reach the water the more points you get. Each new level gives one more life.  Collecting goodies along the way gives more points and/or life. Can you reach level 10?</p>
+ 				</div>
+ 			</div>
+		</div>
+		
+	</div>
+<script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
 </body>
