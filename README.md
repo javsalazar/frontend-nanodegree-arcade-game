@@ -13,7 +13,7 @@ Some features:
 
 * Player is randomly placed on bottom row each time it starts again.
 
-* Bugs are randomly placed with random speed, both increasing as levels are go up.
+* Bugs are randomly placed with random speed, both increasing as levels go up.
 
 * Bugs can move from either direction, left to right or right to left.
 
