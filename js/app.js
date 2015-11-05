@@ -147,7 +147,7 @@ var Player = function( xStart, yStart ){
     this.lives = 3;
     this.level = 0;
     this.inState = 'play';
-    this.music = '';
+    this.music = true;
 };
 
 Player.prototype.render = function() {
@@ -242,6 +242,7 @@ Player.prototype.handleInput = function (key) {
     if ( (this.inState === 'over'  || this.inState === 'pause')  && key === 'r'){
         player = new Player();
         allEnemies = Resources.createEnemies();
+        Resources.bgSound(true);
     }
 
     // move player if didn't hit enemy and game is not over or paused
