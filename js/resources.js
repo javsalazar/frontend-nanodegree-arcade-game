@@ -114,11 +114,6 @@
         for( var count = 0; count < totalEnemies; count++ ){
             // count determines the row the bug appears on
             allEnemies.push( new Enemy(count));
-
-            // play enemy/game sound after first enemy pushed into array
-            if ( allEnemies[0]){
-                allEnemies[count].enemySound();  //JAV-UNCOMMENT FOR SOUND>>>
-            }
         }
 
         return allEnemies;
@@ -127,6 +122,44 @@
     function showGame () {
         var canvas = document.querySelector("canvas");
         canvas.className = "animated fadeInDownBig";
+        Resources.bgSound(true);
+    }
+
+    // pass 'init' if want to get random character rather than cycle.
+    function cycleCharacter (index, init) {
+        var current = index || 0,
+            charArray = [
+                'images/char-boy.png',
+                'images/char-cat-girl.png', 
+                'images/char-horn-girl.png',
+                'images/char-pink-girl.png',
+                'images/char-princess-girl.png'
+            ];
+
+        if ( init){
+            return charArray[index];
+        }
+
+        player.sprite = charArray[current];
+        player.character = index;
+    }
+
+    // play background music, play if parameter is true otherwise pause
+    function bgSound(play) {
+
+        var sound = document.getElementById("bug-sound");
+        
+        sound.pause();
+
+        if ( !play ){
+            player.music = false;
+            return;
+        }
+        sound.src = "../sound/groovy.m4a";
+        sound.volume = 0.3;
+        sound.play();
+        player.music = true;
+
     }
 
     /* This object defines the publicly accessible functions available to
@@ -139,6 +172,8 @@
         isReady: isReady,
         getRandom: getRandom,
         createEnemies: createEnemies,
-        showGame: showGame
+        showGame: showGame,
+        cycleCharacter: cycleCharacter,
+        bgSound: bgSound
     };
 })();
