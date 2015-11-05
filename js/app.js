@@ -332,7 +332,7 @@ Player.prototype.checkCollision = function  () {
         enemyTopEdge = currentEnemy.y,
         enemyBottomEdge = enemyTopEdge + 50;
 
-        if ( enemyRightEdge > playerLeftEdge && enemyLeftEdge < playerRightEdge && this.y < currentEnemy.y + 50 && this.y + 50 > currentEnemy.y) {
+        if (  this.checkEdges(enemyLeftEdge, enemyRightEdge, enemyTopEdge, enemyBottomEdge) ) {
             console.log('crash!');
             this.playSound('../sound/die.m4a');
             this.lives -= 1;
