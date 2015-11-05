@@ -21,13 +21,9 @@ var Engine = (function(global) {
      */
     var doc = global.document,
         win = global.window,
-        canvas = doc.createElement('canvas'),
+        canvas = global.document.querySelector('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
-
-    canvas.width = 505;
-    canvas.height = 606;
-    doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -47,7 +43,7 @@ var Engine = (function(global) {
          */
         
         //PAUSE animation when player dies!
-        if ( player.inState !== 'crash' && player.inState !== 'over' ){
+        if ( player.inState !== 'crash' && player.inState !== 'over' && player.inState !== 'pause' ){
             update(dt);
         }
 
@@ -101,7 +97,6 @@ var Engine = (function(global) {
         });
         
         player.update();
-        
     }
 
     /* This function initially draws the "game level", it will then call
@@ -143,8 +138,7 @@ var Engine = (function(global) {
             }
         }
 
-
-         renderEntities();
+        renderEntities();
     }
 
     /* This function is called by the render function and is called on each game
@@ -160,7 +154,7 @@ var Engine = (function(global) {
         });
 
         player.render();
-        // heart.render();
+        goodie.render();        
     }
 
     /* This function does nothing but it could have been a good place to
@@ -182,7 +176,14 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/enemy-bug-r.png',
         'images/char-boy.png',
-        'images/Heart.png'
+        'images/char-pink-girl.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-princess-girl.png',
+        'images/Heart.png',
+        'images/gem-blue.png',
+        'images/gem-orange.png',
+        'images/gem-green.png'
     ]);
     Resources.onReady(init);
 
