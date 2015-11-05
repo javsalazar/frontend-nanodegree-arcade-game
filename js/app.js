@@ -233,19 +233,13 @@ Player.prototype.handleInput = function (key) {
     }
 
     if ( key === 'm'){
-        
         var state = this.music;
-
         this.music = ( state ) ?  false :  true;
-
         Resources.bgSound(this.music);
     }
-
     
     // start new game if game is over and click on 'r'
     if ( (this.inState === 'over'  || this.inState === 'pause')  && key === 'r'){
-
-        console.log('I want to play AGAING!!!');
         player = new Player();
         allEnemies = Resources.createEnemies();
     }
@@ -299,18 +293,14 @@ Player.prototype.handleInput = function (key) {
 Player.prototype.levelReached = function () {
 
     this.totalTime = (Date.now() - this.startTime) / 1000.0;
-    console.log('Time to reach goal: %s', this.totalTime);
     this.playSound('../sound/levelup.m4a');
     this.score += Math.round(50 / this.totalTime);  // use 50 as a random number of points to give
-    console.log(' Score is : ', Math.round(50 / this.totalTime));
 
     // check to see if enough points to move to next level BUT not beyond level 10 (last one)
     if ( this.score > levels[this.level].points  && this.level !== 10){
-        console.log('NEW LEVEL REACHED');
         this.level += 1;  //move to next level
         this.lives += 1;  //add to lives total
         this.inState = 'levelUp'; // to show message, gets reset on restart()
-        console.log('new level is: %s', this.level);
         Resources.createEnemies(levels[this.level]);
     }
 
@@ -332,8 +322,8 @@ Player.prototype.checkCollision = function  () {
         enemyTopEdge = currentEnemy.y,
         enemyBottomEdge = enemyTopEdge + 50;
 
+        // did we hit enemy?
         if (  this.checkEdges(enemyLeftEdge, enemyRightEdge, enemyTopEdge, enemyBottomEdge) ) {
-            console.log('crash!');
             this.playSound('../sound/die.m4a');
             this.lives -= 1;
             this.inState = 'crash';
@@ -348,8 +338,6 @@ Player.prototype.checkCollision = function  () {
         goodieBottomEdge = goodieTopEdge + 50;
 
     if ( this.checkEdges(goodieLeftEdge, goodieRightEdge, goodieTopEdge, goodieBottomEdge) ) {
-        
-        console.log('goodie me!');
         goodie.x = -200;
         goodie.y= -200;
         this.playSound('../sound/goodie.m4a');
