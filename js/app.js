@@ -1,15 +1,3 @@
-/* TODO:
-    jumping' sound lags if move player too fast, need to fix
-
-current features:
-    bugs move randomly from L->R or R->L
-    random place player in starting position
-    sound on move, reaching goal, and background 
-    points based on how fast you reach goal
-    display, SCORE and NO of LIVES
-    LEVELS - add life on reach level
-*/
-
  // as level index increase, difficulty increase
 var levels = [
         {
@@ -85,13 +73,13 @@ var levels = [
 
 var Enemy = function(yStart) {
     // Variables applied to each of our instances go here
-    this.speed = this.getSpeed();  // get speed
+    this.speed = this.getSpeed(); 
     this.fromDirection = this.getStartLocation();  // left or right
     
     if ( yStart > 2 ) {
         yStart = yStart % 3; //only have 3 rows, make sure to add them there
     } 
-    this.x = Resources.getRandom(-90,495); // random place between canvas
+    this.x = Resources.getRandom(-90,495); // random place within canvas (or edge)
     this.y = yStart * 83 + 66;  // which row to place, 66 is offset from top
 
     // get correct facing image
@@ -110,7 +98,6 @@ Enemy.prototype.render = function() {
 
 // Start from left or right?
 Enemy.prototype.getStartLocation = function() {
-    // get random number 1 or 2
     var start = Resources.getRandom(1,2);
     return ( start === 1 ) ? 'left' : 'right';
 };
@@ -129,20 +116,16 @@ Enemy.prototype.update = function(dt) {
     // moving from left and reached right edge, restart from left edge
     if (this.x > 500 && this.fromDirection === 'left'){
         this.x = -101;
-
-    //
     } else if (this.x < -101 && this.fromDirection === 'right'){
         this.x = 500;
     }
+
     this.x += ( this.speed * dt );
 };
 
 /****** PLAYER RELATED *****/
 
 var Player = function( xStart, yStart ){
-    // image chosen for the player
-    // this.sprite = 'images/char-boy.png';
-    
     this.character = Resources.getRandom(0,4); // index of character (default)
     this.sprite = Resources.cycleCharacter(this.character, true);
     // player will start at the given location, center bottom row by default.
@@ -150,7 +133,7 @@ var Player = function( xStart, yStart ){
     this.y = yStart || 413;
     this.startTime = Date.now();
 
-    // define x and y deltas
+    // define x and y deltas, used to determined how 'far' player moves on each move.
     this.xDelta = 101;
     this.yDelta = 83;
     //define player boundaries
@@ -170,7 +153,7 @@ var Player = function( xStart, yStart ){
 Player.prototype.render = function() {
     
     if (this.inState == 'over'){
-        // canvas is 505 x 606
+        // canvas is 505 x 606  -- center text
         this.drawText(ctx, "Game Over!", 505 * 0.5, 606 * 0.5 );  
         this.drawText(ctx, "(press 'r' to play again)", 505 * 0.5, 606 * 0.75 );  
     }
@@ -341,7 +324,6 @@ Player.prototype.checkCollision = function  () {
         playerLeftEdge = this.x + 17, //17 is offset from x location, image 67 wide (101-67)/2
         playerRightEdge = playerLeftEdge + 67; // add width for right edge
 
-
     // check for enemies
     for(var i = 0,numEnemies = allEnemies.length; i < numEnemies; i++) {
         currentEnemy = allEnemies[i];
@@ -352,7 +334,6 @@ Player.prototype.checkCollision = function  () {
 
         if ( enemyRightEdge > playerLeftEdge && enemyLeftEdge < playerRightEdge && this.y < currentEnemy.y + 50 && this.y + 50 > currentEnemy.y) {
             console.log('crash!');
-            
             this.playSound('../sound/die.m4a');
             this.lives -= 1;
             this.inState = 'crash';
