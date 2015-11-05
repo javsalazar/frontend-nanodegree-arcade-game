@@ -1,7 +1,100 @@
 body {
     text-align: center;
 }
-/*excerpt from animate.css*/
+
+p {
+    margin: 5px 0;
+}
+
+h2 {
+    margin: 0 0 5px 0;
+}
+
+.fadeInDownBig {
+    animation-name: fadeInDownBig;
+}
+
+canvas {
+    opacity: 0;
+}
+
+/* entire container, keeps perspective */
+.flip-container {
+  perspective: 1000;
+  margin: 0 auto;
+}
+  /* flip the pane when hovered */
+  .flip-container.hover .flipper {
+    transform: rotateY(180deg);
+  }
+
+.flip-container, .front, .back {
+  width: 505px;
+  height: 606px;
+}
+
+/* flip speed goes here */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+
+  position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+  backface-visibility: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+  z-index: 2;
+  /* for firefox 31 */
+  /*transform: rotateY(0deg);*/
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);
+}
+
+
+/*  Help Screen */
+.back {
+    background-color: red;
+}
+
+.container {
+    width: 50%;
+    float:left;
+    box-sizing: border-box;
+}
+
+.characters img {
+    width: 90px;
+    margin-top:-50px;
+}
+
+.goodies img {
+    width:65px;
+    margin: -30px 10px 10px;
+}
+
+.keycodes p {
+    text-align: left;
+    padding:5px 0 0 30px;
+}
+
+.object {
+    text-align: left;
+    padding:5px 30px 5px;
+}
+
+/* excerpt from animate.css */
 .animated {
     -webkit-animation-duration: 2s;
     animation-duration: 2s;
@@ -10,22 +103,13 @@ body {
 }
 
 @keyframes fadeInDownBig {
-  from {
-    opacity: 0;
-    transform: translate3d(0, -2000px, 0);
-  }
+    from {
+        opacity: 0;
+        transform: translate3d(0, -2000px, 0);
+    }
 
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.fadeInDownBig {
-  animation-name: fadeInDownBig;
-}
-
-
-canvas {
-    opacity: 0;
+    to {
+        opacity: 1;
+        transform: none;
+    }
 }
