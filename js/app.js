@@ -1,11 +1,22 @@
- // as level index increase, difficulty increase
+/* app.js
+ * This file provides the detais for the game elements. This is where the instances 
+ * for the player, enemies, and goodies are created. In addition to the contructor 
+ * functions for each element, the helper functions for each are in this file.
+ *
+ * The levels variable is an array of objects for each level that is used to determine
+ * the difficulty of the game
+ *
+ * The goodies variable is an array of objects that determines the reward for each type
+ * of goodie.
+ */
+
 var levels = [
-        {
-            points: 50,  // point required to get to this level
+        { //level 0
+            points: 50, 
             bugs: 1,
             speed: 50
         },
-        { // level 1
+        { 
             points: 100,
             bugs: 3,
             speed: 100
@@ -46,7 +57,7 @@ var levels = [
             speed: 700
         }
     ],
-    goodies = [ // determine 'reward' for each goodie.
+    goodies = [
         {
             url: "images/Heart.png",
             life: 1,
@@ -69,45 +80,64 @@ var levels = [
         }
     ];
 
-/****** ENEMY RELATED *****/
-
+/**
+ * Represents an enemy.
+ * @constructor
+ * @param {number} yStart - The y coordinate for enemy to start at.
+ */
 var Enemy = function(yStart) {
     // Variables applied to each of our instances go here
     this.speed = this.getSpeed(); 
-    this.fromDirection = this.getStartLocation();  // left or right
+    this.fromDirection = this.getStartLocation();
     
     if ( yStart > 2 ) {
-        yStart = yStart % 3; //only have 3 rows, make sure to add them there
-    } 
-    this.x = Resources.getRandom(-90,495); // random place within canvas (or edge)
-    this.y = yStart * 83 + 66;  // which row to place, 66 is offset from top
+        //only have 3 rows, make sure to add them there
+        yStart = yStart % 3; 
+    }
+    // random place within canvas (or edge)
+    this.x = Resources.getRandom(-90,495);
+
+    // which row to place, 66 is offset from top, 83 size of each square
+    this.y = yStart * 83 + 66;  
 
     // get correct facing image
     if (this.fromDirection === 'left'){
         this.sprite = 'images/enemy-bug.png';
     }else{
         this.sprite = 'images/enemy-bug-r.png';
-        this.speed *= -1; //moving left
+        //moving from right to left
+        this.speed *= -1;
     }
 };
 
-// Draw the enemy on the screen, required method for game
+/**
+ * Draw the enemy on the screen, required method for game
+ */
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Start from left or right?
+/**
+ * Determin enemy moving direction, left or right
+ * @returns {string} returns 'left' or 'right' string
+ */
 Enemy.prototype.getStartLocation = function() {
     var start = Resources.getRandom(1,2);
     return ( start === 1 ) ? 'left' : 'right';
 };
 
+/**
+ * Define a random speed for enemy
+ * @returns {number} A random number based on player.level.speed setting
+ */
 Enemy.prototype.getSpeed = function () {
     return Math.floor( ( Math.random() * levels[player.level].speed ) + 50 );
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/**
+ * Update the enemy's position, required method for game
+ * @param {number} dt - a time delta between ticks
+*/
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -123,10 +153,15 @@ Enemy.prototype.update = function(dt) {
     this.x += ( this.speed * dt );
 };
 
-/****** PLAYER RELATED *****/
-
+/**
+ * Represents a player.
+ * @constructor
+ * @param {number} xStart - The x coordinate for player to start at.
+ * @param {number} yStart - The y coordinate for player to start at.
+ */
 var Player = function( xStart, yStart ){
-    this.character = Resources.getRandom(0,4); // index of character (default)
+    // index of character (default)
+    this.character = Resources.getRandom(0,4); 
     this.sprite = Resources.cycleCharacter(this.character, true);
     // player will start at the given location, center bottom row by default.
     this.x = xStart || 202;
@@ -150,6 +185,9 @@ var Player = function( xStart, yStart ){
     this.music = true;
 };
 
+/**
+ * Draw the player and related player elements on the screen, required method for game
+ */
 Player.prototype.render = function() {
     
     if (this.inState == 'over'){
@@ -170,6 +208,10 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+/**
+ * Play sound on player action
+ * @param {string} tune - path to sound file to play, 'jump' sound by default
+ */
 Player.prototype.playSound = function (tune) {
     var sound = document.getElementById('player-sound');
     
@@ -179,6 +221,9 @@ Player.prototype.playSound = function (tune) {
     sound.play();
 };
 
+/**
+ * Draw players current score
+ */
 Player.prototype.drawScore = function () {
     var sc = 'Score: ' + this.score;
     ctx.font = '22pt Impact';
@@ -186,6 +231,9 @@ Player.prototype.drawScore = function () {
     ctx.fillText(sc, 20, 90);
 };
 
+/**
+ * Draw help message on screen
+ */
 Player.prototype.drawHelp = function () {
     var sc = '\'h\' for help';
     ctx.save();
@@ -195,6 +243,9 @@ Player.prototype.drawHelp = function () {
     ctx.restore();
 };
 
+/**
+ * Draw number of lives remaining for player
+ */
 Player.prototype.drawLives = function () {
     ctx.save();
     ctx.scale(0.3, 0.3);
@@ -207,6 +258,13 @@ Player.prototype.drawLives = function () {
     ctx.restore();
 };
 
+/**
+ * Draw text on canvas
+ * @param {object} ctx - canvas context area
+ * @param {text} {string} - the text to draw
+ * @param {number} x - the x coordinate on canvas to draw text
+ * @param {number} y - the y coordinate on canvas to draw text
+ */
 Player.prototype.drawText = function (ctx, text, x, y) {
     ctx.save();
     ctx.font = '36pt Impact';
@@ -220,6 +278,10 @@ Player.prototype.drawText = function (ctx, text, x, y) {
     ctx.restore();
 };
 
+/**
+ * Handle keyboard input
+ * @param {string} key - key value of pressed key
+ */
 Player.prototype.handleInput = function (key) {
     
     if ( key === 'c'){
@@ -295,7 +357,8 @@ Player.prototype.levelReached = function () {
 
     this.totalTime = (Date.now() - this.startTime) / 1000.0;
     this.playSound('../sound/levelup.m4a');
-    this.score += Math.round(50 / this.totalTime);  // use 50 as a random number of points to give
+    // use 50 as a random base number of points to give
+    this.score += Math.round(50 / this.totalTime);  
 
     // check to see if enough points to move to next level BUT not beyond level 10 (last one)
     if ( this.score > levels[this.level].points  && this.level !== 10){
@@ -308,12 +371,14 @@ Player.prototype.levelReached = function () {
     this.restart();
 };
 
+/**
+ * Check if player collides with other elements
+ * @param {number} y - the y coordinate on canvas to draw text
+ */
 Player.prototype.checkCollision = function  () {
     var currentEnemy,
         enemyLeftEdge,
-        enemyRightEdge,
-        playerLeftEdge = this.x + 17, //17 is offset from x location, image 67 wide (101-67)/2
-        playerRightEdge = playerLeftEdge + 67; // add width for right edge
+        enemyRightEdge;
 
     // check for enemies
     for(var i = 0,numEnemies = allEnemies.length; i < numEnemies; i++) {
@@ -347,6 +412,15 @@ Player.prototype.checkCollision = function  () {
     }
 };
 
+/**
+ * Compare player position with other object on canvas to see if they overlap position
+ * @param {number} oLeft - left edge of object
+ * @param {number} oRight - right edge of object
+ * @param {number} oTop - top edge of object
+ * @param {number} oBottom - bottom edge of object
+ * @param {number} oBottom - bottom edge of object
+ * @returns {bool} true is there is overlap
+ */
 Player.prototype.checkEdges = function (oLeft, oRight, oTop, oBottom) {
     playerLeftEdge = this.x + 14.5, //17 is offset from x location, image ~72 (avg. width for all characters) wide (101-72)/2
     playerRightEdge = playerLeftEdge + 72, // add width for right edge ~72
@@ -356,10 +430,16 @@ Player.prototype.checkEdges = function (oLeft, oRight, oTop, oBottom) {
     return oRight > playerLeftEdge && oLeft < playerRightEdge && playerTopEdge < oBottom && playerBotomEdge > oTop; 
 };
 
+/**
+ * Update the player's position, required method for game
+ */
 Player.prototype.update = function () {
     this.checkCollision();
 };
 
+/**
+ * Start game again if player dies or reaches goal
+ */
 Player.prototype.restart = function () {
 
     // need to pass reference to 'this' into function
@@ -401,6 +481,12 @@ Player.prototype.restart = function () {
 
 /****** GOODIES RELATED *****/
 
+/**
+ * Represents a goodie, a heart, any of the colored gems, or potentially any other.
+ * @constructor
+ * @param {number} xStart - The x coordinate for goodie to start at.
+ * @param {number} yStart - The y coordinate for goodie to start at.
+ */
 var Goodie = function (xStart, yStart) {
 
     var index = Resources.getRandom(0, goodies.length - 1); //get random 'goodie'
@@ -412,6 +498,9 @@ var Goodie = function (xStart, yStart) {
     this.y = Resources.getRandom(0,2) * 83 + 76;
 };
 
+/**
+ * Draw the goodie on the screen
+ */
 Goodie.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x , this.y);
 };
@@ -421,9 +510,8 @@ var player = new Player(),
     allEnemies = Resources.createEnemies(),
     goodie = new Goodie();
 
-
 // This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// Player.handleInput() method.
 document.addEventListener('keyup', function(e) { 
     var allowedKeys = {
         37: 'left',
@@ -439,4 +527,5 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// This listener checks when page is loaded then slides game down
 window.addEventListener('load', Resources.showGame, false);
