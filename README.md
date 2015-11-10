@@ -21,11 +21,11 @@ Some features:
 
 1. clone this repo:
 
-* https: `https://github.com/javsalazar/frontend-nanodegree-arcade-game.git`
+	* https: `https://github.com/javsalazar/frontend-nanodegree-arcade-game.git`
 
 	or
 
-* ssh: `git@github.com:javsalazar/frontend-nanodegree-arcade-game.git`
+	* ssh: `git@github.com:javsalazar/frontend-nanodegree-arcade-game.git`
 
 2. If not familiar with git and/or cloning, files can be downloaded by clicking on the "download zip" button and uncompressing into a directory of your choice.
 
@@ -46,35 +46,35 @@ Some features:
 
 6. Collectiong goodies along the way gives more points and/or lives.
 
-* heart  = 1 new life
+	* heart  = 1 new life
 
-* blue gem = 20 points
+	* blue gem = 20 points
 
-* orange gem = 50 points
+	* orange gem = 50 points
 
-* green gem = 1 new life + 75 points
+	* green gem = 1 new life + 75 points
 
 7. There are a total of 10 levels.
 
-* level 1 = 50+ points
+	* level 1 = 50+ points
 
-* level 2 = 100+ points
+	* level 2 = 100+ points
 
-* level 3 = 200+ points
+	* level 3 = 200+ points
 
-* level 4 = 300+ points
+	* level 4 = 300+ points
 
-* level 5 = 450+ points
+	* level 5 = 450+ points
 
-* level 6 = 600+ points
+	* level 6 = 600+ points
 
-* level 7 = 700+ points
+	* level 7 = 700+ points
 
-* level 8 = 800+ points
+	* level 8 = 800+ points
 
-* level 9 = 900+ points
+	* level 9 = 900+ points
 
-* level 10 = 1000+ points
+	* level 10 = 1000+ points
 
 
 ## Options
