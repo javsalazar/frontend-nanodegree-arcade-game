@@ -14,7 +14,7 @@ Some features:
 
 * A life is added as each level is reached.
 
-* Points gained for reaching goal is based on how long it take to reach it.
+* Points gained for reaching goal is based on how long it takes to reach it.
 
 
 ## How To Install
@@ -39,11 +39,11 @@ Some features:
 
 2. Use the arrow keys to move player.
 
-3. Avoid the bugs, hitting them will cause you to lose a life.
+3. Avoid the bugs, hitting a bug will cause you to lose a life.
 
 4. The faster you reach the goal (the water), the more points are gained.
 
-5. As each level is reached a new life is awarded and the diffulty level goes up.
+5. As each level is reached a new life is awarded and the difficulty level goes up.
 
 6. Collectiong goodies along the way gives more points and/or lives.
 
