@@ -52,9 +52,19 @@ var levels = [
             speed: 600
         },
         {
-            points: 10000,
+            points: 900,
             bugs: 10,
-            speed: 700
+            speed: 800
+        },
+        {
+            points: 1000,
+            bugs: 10,
+            speed: 900
+        },
+        {
+            points: 1100,
+            bugs: 11,
+            speed: 900
         }
     ],
     goodies = [
