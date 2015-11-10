@@ -77,6 +77,8 @@ Some features:
 
 	* level 10 = 1000+ points
 
+8. Game over when player has no more lives.
+
 
 ## Options
 
