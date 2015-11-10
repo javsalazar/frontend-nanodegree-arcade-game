@@ -19,12 +19,14 @@ Some features:
 
 ## How To Install
 
-1. clone this repo: 
+1. clone this repo:
+ 
 	* https: `https://github.com/javsalazar/frontend-nanodegree-arcade-game.git`
 
 	or
 
 	* ssh: `git@github.com:javsalazar/frontend-nanodegree-arcade-game.git`
+
 
 2. If not familiar with git and/or cloning, files can be downloaded by clicking on the "download zip" button and uncompress in directory of your choice.
 
