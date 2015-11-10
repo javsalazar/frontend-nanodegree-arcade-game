@@ -27,6 +27,7 @@ Some features:
 
 	* ssh: `git@github.com:javsalazar/frontend-nanodegree-arcade-game.git`
 
+
 2. If not familiar with git and/or cloning, files can be downloaded by clicking on the "download zip" button and uncompressing into a directory of your choice.
 
 3. Open the index.html from project to play game.
