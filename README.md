@@ -35,6 +35,8 @@ Some features:
 
 ## How To Play
 
+To play without downloading go [Here](http://p3.xjav.com/)
+
 1. Player starts with 3 lives.
 
 2. Use the arrow keys to move player.
